@@ -39,6 +39,10 @@ module.exports = function(grunt) {
           sassDir: 'sass',
           cssDir: 'css'
         }
+      },
+      watch: {
+        files: 'assests/scss/*.scss',
+	tasks: 'compass:dist','compass:dev'        
       }
     },
     regarde: {
@@ -56,6 +60,15 @@ module.exports = function(grunt) {
 	  'dist/img.png': 'src/img.png',
 	  'dist/img.jpg': 'src/img.jpg'
 	}
+      },
+      dev: {
+        options: {
+	   optimizationLevel: 0
+	},
+        files: {
+          'dev/img.png': 'src/img.png',
+          'dev/img.jpg': 'src/img.jpg'
+        }
       }
     }
   });
@@ -66,7 +79,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
 
-  grunt.registerTask('images', ['imagemin']);
+//  grunt.registerTask('images', ['imagemin']);
   grunt.registerTask('default', ['compass','livereload-start','connect','regarde']);
 };
 
