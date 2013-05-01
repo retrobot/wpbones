@@ -51,10 +51,19 @@ module.exports = function(grunt) {
         options: {
           optimizationLevel: 3
 	      },
-        files: {
-          'dev/img.png': 'src/img.png',
-          'dev/img.jpg': 'src/img.jpg'
-        }
+        files: [{
+          expand: true,
+          flaten: true,
+          cwd: 'hello',
+          src: '*.{png,jpg}',
+          dest: 'images'//'<%= cwd %>'
+        }]
+          // {src: 'hello/*.png'}
+          // 'dest/fe/': ['hello/*.{png,jpg,jpeg}'],
+          // dest: ['*.min.{png,jpg,jpeg}']
+          // 'dest/img.png':['src/img.png'],
+          // 'dest/img.jpg':['src/img.jpg'],
+        
       },
       dev: {
         options: {
