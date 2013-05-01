@@ -9,40 +9,34 @@ var folderMount = function folderMount(connect, point) {
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+  // Compass settings
+    compass: {                  // Task
+      dist: {                   // Target
+        options: {              // Target options
+          sassDir: 'sass',
+          cssDir: 'css',
+          environment: 'production'
+        }
+      },
+      dev: {                    // Another target
+        options: {
+          sassDir: 'wp-content/themessass',
+          cssDir: 'css'
+        }
+      }
+    },
+  // livereload settings
     livereload: {
-        port: 35729, // Default liverreload listening port
+      port: 35729, // Default liverreload listening port
     },
     connect: {
       livereload: {
         options: {
-	  port: 9001,
-	  middleware: function(connect, options) {
-	    return [lrSnippet, folderMount(connect, options.base)]
-	  }
-
-	}
-
-      }
-    },
-    compass: {
-      dist: {
-        options: {
-          sassDir: 'sass',
-  	  cssDir: 'css',
-	  fontsDir: 'fonts',
-	  javascriptDir: 'js',
-	  environment: 'production'
-        }
-      },
-      dev: {
-        options: {
-          sassDir: 'sass',
-          cssDir: 'css'
-        }
-      },
-      watch: {
-        files: 'assests/scss/*.scss',
-	tasks: 'compass:dist','compass:dev'        
+	        port: 9001,
+	        middleware: function(connect, options) {
+	          return [lrSnippet, folderMount(connect, options.base)]
+	        }
+      	}
       }
     },
     regarde: {
@@ -51,20 +45,21 @@ module.exports = function(grunt) {
         tasks: ['livereload']
       }
     },
+  // image minification settings
     imagemin: {
       dist: {
         options: {
-	   optimizationLevel: 3
-	},
-	files: {
-	  'dist/img.png': 'src/img.png',
-	  'dist/img.jpg': 'src/img.jpg'
-	}
+          optimizationLevel: 3
+	      },
+        files: {
+          'dev/img.png': 'src/img.png',
+          'dev/img.jpg': 'src/img.jpg'
+        }
       },
       dev: {
         options: {
-	   optimizationLevel: 0
-	},
+	        optimizationLevel: 0
+	      },
         files: {
           'dev/img.png': 'src/img.png',
           'dev/img.jpg': 'src/img.jpg'
