@@ -1,0 +1,5 @@
+[4mRunning "rsync:dist" (rsync) task[24m
+./ > infashi1@infashiononline.com:public_html/blog[31mFatal error: spawn ENOENT[39m
+Error: spawn ENOENT
+    at errnoException (child_process.js:975:11)
+    at Process.ChildProcess._handle.onexit (child_process.js:766:34)

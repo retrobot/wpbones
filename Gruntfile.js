@@ -6,6 +6,7 @@ var folderMount = function folderMount(connect, point) {
   return connect.static(path.resolve(point));
 }
 
+
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -79,20 +80,20 @@ module.exports = function(grunt) {
     rsync: {
       dist: {
           src: "./",
-          dest: "./",
-	  host: "kiwikrea@kiwikreatives.co.uk",
+          dest: "public_html/blog",
+	  host: "infashi1@infashiononline.com",
 	  port: "3784",
           recursive: true,
           exclude: [".git*","*.scss"]
-	  syncDest: true
+	       // syncDest: true
       },
-      "deploy-staging": {
-          src: "wp-content/themes/wpbones",
-	  dest: "/",
+      "staging": {
+          src: "./",
+	        dest: "public_html",
           host: "infashi1@infashiononline.com",
           port: "3784", // Use the rsyncwrapper port option to set a non-standard ssh port if required.
           recursive: true,
-          syncDest: true
+          syncDest: false
       },
       "deploy-live": {
           src: "../dist/",
@@ -115,10 +116,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-rsync');
 
 
-  grunt.registerTask('deploy', ['rsync:deploy-staging']);
+  grunt.registerTask('deploy', ['rsync:dist']);
 //  grunt.registerTask('images', ['imagemin:dist']);
   grunt.registerTask('default', ['compass:dist','livereload-start','connect','regarde']);
 };
+
+
+
+
+
+
 
 
 

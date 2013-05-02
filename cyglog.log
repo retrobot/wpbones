@@ -1,0 +1,15 @@
+[4mRunning "rsync:dist" (rsync) task[24m
+./ > infashi1@infashiononline.com:public_html/blog[31m error[39m
+[90mrsync ./ infashi1@infashiononline.com:public_html/blog --rsh=ssh --recursive --exclude=.git* --exclude=*.scss -e "ssh -p 3784"[39m
+[31mError: rsync exited with code 14. rsync: Failed to exec ssh -p 3784: No such file or directory (2)
+rsync error: error in IPC code (code 14) at /home/lapo/package/rsync-3.0.9-1/src/rsync-3.0.9/pipe.c(84) [sender=3.0.9]
+rsync: writefd_unbuffered failed to write 4 bytes to socket [sender]: Broken pipe (32)
+rsync error: error in IPC code (code 14) at /home/lapo/package/rsync-3.0.9-1/src/rsync-3.0.9/io.c(1532) [sender=3.0.9]
+[39m
+[33mWarning: Task "rsync:dist" failed. Use --force to continue.[39m
+Error: Task "rsync:dist" failed.
+    at Task.<anonymous> (C:\xampp\htdocs\wpbones\node_modules\grunt\lib\util\task.js:197:15)
+    at null._onTimeout (C:\xampp\htdocs\wpbones\node_modules\grunt\lib\util\task.js:225:33)
+    at Timer.listOnTimeout [as ontimeout] (timers.js:110:15)
+
+[31mAborted due to warnings.[39m
