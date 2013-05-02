@@ -15,13 +15,15 @@ module.exports = function(grunt) {
         options: {              // Target options
           sassDir: 'sass',
           cssDir: 'css',
+	        fontsDir: 'fonts',
+	        javascriptDir: 'js',
           environment: 'production'
         }
       },
       dev: {                    // Another target
         options: {
-          sassDir: 'wp-content/themessass',
-          cssDir: 'css'
+          config: 'config.rb',
+          force: true
         }
       }
     },
@@ -53,7 +55,7 @@ module.exports = function(grunt) {
 	      },
         files: [{
           expand: true,
-          flaten: true,
+          flatten: true,
           cwd: 'hello',
           src: '*.{png,jpg}',
           dest: 'images'//'<%= cwd %>'
@@ -62,8 +64,7 @@ module.exports = function(grunt) {
           // 'dest/fe/': ['hello/*.{png,jpg,jpeg}'],
           // dest: ['*.min.{png,jpg,jpeg}']
           // 'dest/img.png':['src/img.png'],
-          // 'dest/img.jpg':['src/img.jpg'],
-        
+          // 'dest/img.jpg':['src/img.jpg'],       
       },
       dev: {
         options: {
@@ -74,16 +75,53 @@ module.exports = function(grunt) {
           'dev/img.jpg': 'src/img.jpg'
         }
       }
-    }
+    },
+    rsync: {
+      dist: {
+          src: "./",
+          dest: "./",
+	  host: "kiwikrea@kiwikreatives.co.uk",
+	  port: "3784",
+          recursive: true,
+          exclude: [".git*","*.scss"]
+	  syncDest: true
+      },
+      "deploy-staging": {
+          src: "wp-content/themes/wpbones",
+	  dest: "/",
+          host: "infashi1@infashiononline.com",
+          port: "3784", // Use the rsyncwrapper port option to set a non-standard ssh port if required.
+          recursive: true,
+          syncDest: true
+      },
+      "deploy-live": {
+          src: "../dist/",
+          dest: "/var/www/site/blog",
+          host: "infashi1@infashiononline.com",
+          port: "3784",
+          recursive: true,
+          syncDest: true
+      }
+  }
   });
+
+  grunt.file.setBase('./');
 
   grunt.loadNpmTasks('grunt-regarde');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-livereload');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-rsync');
 
-//  grunt.registerTask('images', ['imagemin']);
-  grunt.registerTask('default', ['compass','livereload-start','connect','regarde']);
+
+  grunt.registerTask('deploy', ['rsync:deploy-staging']);
+//  grunt.registerTask('images', ['imagemin:dist']);
+  grunt.registerTask('default', ['compass:dist','livereload-start','connect','regarde']);
 };
+
+
+
+
+
 
